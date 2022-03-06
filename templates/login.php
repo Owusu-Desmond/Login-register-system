@@ -1,3 +1,9 @@
+<?php
+    include "connection.php";
+    // if (!isset($_POST['login'])) {
+    //     echo "hi here";
+    // }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +21,7 @@
     </nav>
     <div class="mt-5 container border border-2 rounded-3" style="width: 40%;">
         <h1 class="text-center"> Login</h1>
-        <form method="post" class="fs-4" action="">
+        <form method="POST" class="fs-4" action="register.php">
             <div class="mt-4 form-group">
                 <label for="Uname" class="form-label">Username</label>
                 <input name="Uname" id="Uname" type="text" class="form-control" required>

@@ -1,3 +1,9 @@
+<?php
+    include "../connection.php";
+    // if (!isset($_POST['login'])) {
+    //     echo "hi here";
+    // }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +42,7 @@
                 <input name="login" id="register" type="submit" value="Register" name="register" class="form-control btn btn-primary" required>
             </div>
             <div class="my-4">
-                <p class="text-center">Have an acount please <a href="login.php">Login in</a></p>
+                <p class="text-center">Have an acount please <a href="../index.php">Login in</a></p>
             </div>
         </form>
     </div>
