@@ -1,8 +1,11 @@
 <?php
     include "connection.php";
-    // if (!isset($_POST['login'])) {
-    //     echo "hi here";
-    // }
+    if (isset($_POST['login'])) {
+        $username = $_POST['Uname'];
+        $email = $_POST['email'];
+        $password = $_POST['pass'];
+
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +24,7 @@
     </nav>
     <div class="mt-5 container border border-2 rounded-3" style="width: 40%;">
         <h1 class="text-center"> Login</h1>
-        <form method="POST" class="fs-4" action="register.php">
+        <form method="POST" class="fs-4" >
             <div class="mt-4 form-group">
                 <label for="Uname" class="form-label">Username</label>
                 <input name="Uname" id="Uname" type="text" class="form-control" required>

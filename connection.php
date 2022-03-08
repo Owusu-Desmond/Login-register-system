@@ -4,11 +4,8 @@
     $dbPass = "";
     $dbName = "users";
 
-    $db = new mysqli($serverName,$dbUser,$dbPass,$dbName);
+    $dbconn = new mysqli($serverName,$dbUser,$dbPass,$dbName);
 
-    if ($db->connect_error) {
-        echo "Connection Fails " . $db->connect_error;
-    }else{
-        echo "Connection Successfully";
+    if ($dbconn->connect_error) {
+        echo "Connection Fails " . $dbconn->connect_error;
     }
-    
