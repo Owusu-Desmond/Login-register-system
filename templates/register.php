@@ -1,23 +1,35 @@
 <?php
     include "../connection.php";
+    $login = false;
     if (isset($_POST['register'])) {
         $username = $_POST['Uname'];
         $email = $_POST['email'];
         $password1 = $_POST['pass1'];
         $password2 = $_POST['pass2'];
 
+        $login = true;
+        // form validation
+        $errors = array();
         // check if database contains exiting email address
         $check_sql = "SELECT * FROM logins WHERE Email = '$email'";
         $result = $dbconn->query($check_sql);
         $number_of_rows = $result->num_rows;
         if ($number_of_rows == 1) {
-            $error_message = sprintf('<div class="alert alert-danger" role="alert"> Email address already taken!</div>');
-            echo $error_message;  
-        }else{
+            $error_message = "Email address already taken!";
+            array_push($errors,$error_message);  
+        }
+        // check if passeords match or not
+        if ($password1 !== $password2){
+            $error_message = "Passwords do not match!";
+            array_push($errors,$error_message);
+        }
+        // register user if no error
+        $errors_length = count($errors);
+        if($errors_length < 1){
             $sql = "INSERT INTO logins (Username,Email,Pass_word) VALUES ('$username','$email','$password1')";
-            
+        
             if ($dbconn->query($sql) === TRUE) {
-                echo "New record inserted";
+                header("location:userPage.php?");
             }else {
                 echo "Failed to insert a record". $db->error;
             }
@@ -40,6 +52,18 @@
         </div>
     </nav>
     <div class="mt-5 container border border-2 rounded-3" style="width: 40%;">
+        <?php 
+        if($login){
+            if ($errors_length > 0) {
+                foreach ($errors as $error) { ?>
+                    <div class="alert alert-warning" role="alert">
+                        <?php echo $error ?>
+                    </div>
+            <?php    
+                }
+            }
+        }
+        ?>
         <h1 class="text-center">Register</h1>
         <form method="post" class="fs-5">
             <div class="mt-4 form-group">
