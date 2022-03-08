@@ -1,13 +1,13 @@
 <?php
     include "../connection.php";
-    $login = false;
+    $register = false;
     if (isset($_POST['register'])) {
-        $username = $_POST['Uname'];
-        $email = $_POST['email'];
-        $password1 = $_POST['pass1'];
-        $password2 = $_POST['pass2'];
+        $username = $dbconn->real_escape_string($_POST['Uname']);
+        $email = $dbconn->real_escape_string($_POST['email']);
+        $password1 = $dbconn->real_escape_string($_POST['pass1']);
+        $password2 = $dbconn->real_escape_string($_POST['pass2']);
 
-        $login = true;
+        $register = true;
         // form validation
         $errors = array();
         // check if database contains exiting email address
@@ -31,7 +31,7 @@
             if ($dbconn->query($sql) === TRUE) {
                 header("location:userPage.php?");
             }else {
-                echo "Failed to insert a record". $db->error;
+                echo "Failed to insert a record". $dbconn->error;
             }
         }
     }
@@ -43,7 +43,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://bootswatch.com/5/solar/bootstrap.min.css">
-    <title>Login</title>
+    <title>Register</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-primary">
@@ -53,19 +53,21 @@
     </nav>
     <div class="mt-5 container border border-2 rounded-3" style="width: 40%;">
         <?php 
-        if($login){
+        if($register){
             if ($errors_length > 0) {
                 foreach ($errors as $error) { ?>
                     <div class="alert alert-warning" role="alert">
                         <?php echo $error ?>
                     </div>
-            <?php    
+            <?php  
+                // break for each statement to echo only one error
+                    break;  
                 }
             }
         }
         ?>
         <h1 class="text-center">Register</h1>
-        <form method="post" class="fs-5">
+        <form method="post" class="fs-5" action="<?php echo htmlspecialchars("register.php");?>">
             <div class="mt-4 form-group">
                 <label for="Uname" class="form-label">Username</label>
                 <input name="Uname" id="Uname" type="text" class="form-control" required>
@@ -86,7 +88,7 @@
                 <input id="register" type="submit" value="Register" name="register" class="form-control btn btn-primary" required>
             </div>
             <div class="my-4">
-                <p class="text-center">Have an acount please <a href="../index.php">Login in</a></p>
+                <p class="text-center">Have an acount please <a href="login.php">Login in</a></p>
             </div>
         </form>
     </div>
