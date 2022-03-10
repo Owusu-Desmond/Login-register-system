@@ -35,24 +35,11 @@
             }
         }
     }
+    $isUserPage = false;
+    $pageTitle = "Register";
+    include_once "../includes/header.php";
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://bootswatch.com/5/solar/bootstrap.min.css">
-    <title>Register</title>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container-fluid">
-          <a class="navbar-brand text-white fs-4" href="#">Login and Register System</a>
-        </div>
-    </nav>
-    <div class="mt-5 container border border-2 rounded-3" style="width: 40%;">
-        <?php 
+<?php 
         if($register){
             if ($errors_length > 0) {
                 foreach ($errors as $error) { ?>
@@ -88,7 +75,7 @@
                 <input id="register" type="submit" value="Register" name="register" class="form-control btn btn-primary" required>
             </div>
             <div class="my-4">
-                <p class="text-center">Have an acount please <a href="login.php">Login in</a></p>
+                <p class="text-center">Have an acount please <a href="../index.php">Login in</a></p>
             </div>
         </form>
     </div>
