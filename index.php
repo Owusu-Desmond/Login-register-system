@@ -18,6 +18,10 @@
         }
         // put result into associative array
         $row = $result->fetch_assoc();
+        
+        // storing user information to be used in home page.
+        $_SESSION['email'] = $row["Email"];
+        $_SESSION['username'] = $row["Username"];
         // check if password match email address
         if ($password !== $row["Pass_word"]) {
             array_push($errors,"Incorrect password!");

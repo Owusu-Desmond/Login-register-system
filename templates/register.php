@@ -1,11 +1,15 @@
 <?php
     include "../connection.php";
+    session_start();
     $register = false;
     if (isset($_POST['register'])) {
         $username = $dbconn->real_escape_string($_POST['Uname']);
         $email = $dbconn->real_escape_string($_POST['email']);
         $password1 = $dbconn->real_escape_string($_POST['pass1']);
         $password2 = $dbconn->real_escape_string($_POST['pass2']);
+
+        $_SESSION['email'] = $email;
+        $_SESSION['username'] = $username;
 
         $register = true;
         // form validation
