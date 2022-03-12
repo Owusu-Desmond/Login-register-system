@@ -1,8 +1,9 @@
 <?php
-    $serverName = "YOUR SERVER NAME HERE";
-    $dbUser = "YOUR DATABASE USERNAME HERE";
-    $dbPass = "YOUR DATABASE PASSWORD HERE";
-    $dbName = "YOUR DATABASE NAME HERE";
+    include "config/config.php";
+    $serverName = DB_HOST;
+    $dbUser = DB_USER;
+    $dbPass = DB_PASS;
+    $dbName = DB_NAME;
 
     $dbconn = new mysqli($serverName,$dbUser,$dbPass,$dbName);
 
