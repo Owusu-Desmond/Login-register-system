@@ -1,22 +1,20 @@
 <?php
-    include "../connection.php";
     session_start();
+    include_once "../config/config.php";
+    include "../libraries/Database.php";
+    $db = new Database();
     $register = false;
     if (isset($_POST['register'])) {
-        $username = $dbconn->real_escape_string($_POST['Uname']);
-        $email = $dbconn->real_escape_string($_POST['email']);
-        $password1 = $dbconn->real_escape_string($_POST['pass1']);
-        $password2 = $dbconn->real_escape_string($_POST['pass2']);
-
-        $_SESSION['email'] = $email;
-        $_SESSION['username'] = $username;
+        $username = $db->escapeString($_POST['Uname']);
+        $email = $db->escapeString($_POST['email']);
+        $password1 = $db->escapeString($_POST['pass1']);
+        $password2 = $db->escapeString($_POST['pass2']);
 
         $register = true;
         // form validation
         $errors = array();
         // check if database contains exiting email address
-        $check_sql = "SELECT * FROM logins WHERE Email = '$email'";
-        $result = $dbconn->query($check_sql);
+        $result = $db->fetchUserInfo($email);
         $number_of_rows = $result->num_rows;
         if ($number_of_rows == 1) {
             $error_message = "Email address already taken!";
@@ -30,13 +28,8 @@
         // register user if no error
         $errors_length = count($errors);
         if($errors_length < 1){
-            $sql = "INSERT INTO logins (Username,Email,Pass_word) VALUES ('$username','$email','$password1')";
-        
-            if ($dbconn->query($sql) === TRUE) {
-                header("location:userPage.php?");
-            }else {
-                echo "Failed to insert a record". $dbconn->error;
-            }
+            $db->storeUserInfo($username,$email);
+            $db->registerUser($username,$email,$password1);
         }
     }
     $isUserPage = false;
